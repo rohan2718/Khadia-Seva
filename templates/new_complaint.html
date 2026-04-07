@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}New Complaint - Khadia Seva{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white rounded-xl shadow p-6">
+  <h2 class="text-2xl font-bold mb-1">Register New Complaint</h2>
+  <p class="text-sm text-slate-500 mb-6">Share issue details with location and photo proof.</p>
+
+  <form method="post" enctype="multipart/form-data" class="space-y-4" id="complaint-form">
+    <div>
+      <label class="block text-sm mb-1">Title</label>
+      <input type="text" name="title" id="title" required class="w-full border rounded-lg px-3 py-2" />
+    </div>
+    <div>
+      <label class="block text-sm mb-1">Description</label>
+      <textarea name="description" id="description" rows="4" required class="w-full border rounded-lg px-3 py-2"></textarea>
+      <p class="text-xs text-slate-500 mt-1">Smart detection: category and priority auto-suggested while typing.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm mb-1">Category</label>
+        <select name="category" id="category" class="w-full border rounded-lg px-3 py-2">
+          <option>Garbage</option>
+          <option>Road</option>
+          <option>Water</option>
+          <option>Drainage</option>
+          <option>Street Light</option>
+          <option>Other</option>
+        </select>
+        <p class="text-xs mt-1 text-indigo-600" id="suggestion"></p>
+      </div>
+      <div>
+        <label class="block text-sm mb-1">Image</label>
+        <input type="file" name="image" accept="image/*" class="w-full border rounded-lg px-3 py-2" />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="md:col-span-3">
+        <label class="block text-sm mb-1">Location Address / Landmark</label>
+        <input type="text" name="location_text" class="w-full border rounded-lg px-3 py-2" placeholder="Near XYZ circle" />
+      </div>
+      <div>
+        <label class="block text-sm mb-1">Latitude</label>
+        <input type="text" name="latitude" class="w-full border rounded-lg px-3 py-2" />
+      </div>
+      <div>
+        <label class="block text-sm mb-1">Longitude</label>
+        <input type="text" name="longitude" class="w-full border rounded-lg px-3 py-2" />
+      </div>
+      <div class="flex items-end">
+        <div id="priority-badge" class="text-sm px-3 py-2 rounded-lg bg-green-100 text-green-700 w-full text-center">Priority: Normal</div>
+      </div>
+    </div>
+
+    <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Submit Complaint</button>
+  </form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/ai.js') }}"></script>
+{% endblock %}

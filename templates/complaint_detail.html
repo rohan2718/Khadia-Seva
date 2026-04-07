@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Complaint Detail - Khadia Seva{% endblock %}
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-5">
+  <section class="bg-white rounded-xl shadow p-5">
+    <div class="flex items-start justify-between">
+      <div>
+        <h2 class="text-2xl font-bold">{{ complaint.title }}</h2>
+        <p class="text-slate-500">{{ complaint.description }}</p>
+      </div>
+      <span class="px-3 py-1 rounded-full text-xs bg-slate-100">{{ complaint.status }}</span>
+    </div>
+    <div class="grid md:grid-cols-4 gap-4 mt-4 text-sm">
+      <div><strong>Category:</strong> {{ complaint.category }}</div>
+      <div><strong>Suggested:</strong> {{ complaint.suggested_category }}</div>
+      <div><strong>Priority:</strong> {{ complaint.priority }}</div>
+      <div><strong>Assigned:</strong> {{ complaint.assigned_to or 'Not assigned' }}</div>
+    </div>
+    {% if complaint.image_filename %}
+    <img src="/{{ config['UPLOAD_FOLDER'] }}/{{ complaint.image_filename }}" class="mt-4 rounded-lg max-h-80 object-cover border" />
+    {% endif %}
+  </section>
+
+  <section class="bg-white rounded-xl shadow p-5">
+    <h3 class="font-semibold mb-3">Status Timeline</h3>
+    <ol class="border-s-2 border-indigo-100 ps-5 space-y-4">
+      {% for update in updates %}
+      <li class="relative">
+        <span class="absolute -start-[29px] top-1 h-3 w-3 bg-indigo-500 rounded-full"></span>
+        <div class="text-sm font-medium">{{ update.note }}</div>
+        <div class="text-xs text-slate-500">{{ update.created_at[:19].replace('T', ' ') }}</div>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+</div>
+{% endblock %}

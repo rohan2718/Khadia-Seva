@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Login - Khadia Seva{% endblock %}
+{% block content %}
+<div class="min-h-[75vh] flex items-center justify-center">
+  <div class="w-full max-w-md bg-white shadow rounded-2xl p-6">
+    <h1 class="text-2xl font-semibold mb-2">Resident Login</h1>
+    <p class="text-sm text-slate-500 mb-6">Enter your mobile number to receive OTP.</p>
+
+    <form method="post" class="space-y-4">
+      <div>
+        <label class="block text-sm mb-1">Mobile Number</label>
+        <input type="text" name="mobile" maxlength="10" required class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-200" placeholder="10-digit number" />
+      </div>
+      <button class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700">Send OTP</button>
+    </form>
+
+    <p class="mt-4 text-xs text-slate-500">Admin demo mobile: <strong>9999999999</strong></p>
+  </div>
+</div>
+{% endblock %}

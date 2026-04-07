@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.venv/
+khadia_seva.db
+uploads/*
+!uploads/.gitkeep

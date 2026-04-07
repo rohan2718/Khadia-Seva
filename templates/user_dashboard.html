@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}My Dashboard - Khadia Seva{% endblock %}
+{% block content %}
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+  <div>
+    <h2 class="text-2xl font-bold">My Complaints</h2>
+    <p class="text-slate-500 text-sm">Track your civic issues and updates.</p>
+  </div>
+  <a href="{{ url_for('user.new_complaint') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg"><i class="fa-solid fa-plus mr-1"></i> New Complaint</a>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <section class="lg:col-span-2 bg-white rounded-xl shadow p-4">
+    <h3 class="font-semibold mb-3">Complaints</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left border-b">
+            <th class="py-2">Title</th><th>Status</th><th>Priority</th><th>Category</th><th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in complaints %}
+          <tr class="border-b">
+            <td class="py-2">{{ c.title }}</td>
+            <td><span class="px-2 py-1 rounded text-xs bg-slate-100">{{ c.status }}</span></td>
+            <td><span class="px-2 py-1 rounded text-xs {{ 'bg-red-100 text-red-700' if c.priority == 'High' else 'bg-green-100 text-green-700' }}">{{ c.priority }}</span></td>
+            <td>{{ c.category }}</td>
+            <td><a class="text-indigo-600" href="{{ url_for('user.complaint_detail', complaint_id=c.id) }}">View</a></td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5" class="py-4 text-slate-500">No complaints yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="bg-white rounded-xl shadow p-4">
+    <h3 class="font-semibold mb-3">Notifications</h3>
+    <ul class="space-y-3 text-sm">
+      {% for n in notifications %}
+      <li class="border rounded-lg p-3 {{ 'bg-indigo-50' if n.is_read == 0 else '' }}">{{ n.message }}<div class="text-xs text-slate-500 mt-1">{{ n.created_at[:19].replace('T', ' ') }}</div></li>
+      {% else %}
+      <li class="text-slate-500">No notifications yet.</li>
+      {% endfor %}
+    </ul>
+  </section>
+</div>
+{% endblock %}
